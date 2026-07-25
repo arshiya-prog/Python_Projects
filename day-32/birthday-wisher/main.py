@@ -6,7 +6,6 @@ import os
 
 MY_EMAIL = os.environ.get("MY_EMAIL")
 MY_PASSWORD = os.environ.get("MY_PASSWORD")
-
 LETTERS_TEMPLATES = ["day-32/birthday-wisher/letter_templates/letter_1.txt", 
                 "day-32/birthday-wisher/letter_templates/letter_2.txt",
                 "day-32/birthday-wisher/letter_templates/letter_3.txt"
@@ -21,7 +20,7 @@ now = dt.datetime.now()
 current_day = now.day
 current_month = now.month
 
-birthday_df = pd.read_csv("day-32/birthday-wisher/birthdays.csv")   # Edit according to path of your dir
+birthday_df = pd.read_csv("day-32/birthday-wisher/birthdays.csv")
 birthday_dict = birthday_df.to_dict()
 
 for key in birthday_dict["name"]:       # Keys inside nested dict (0, 1)
