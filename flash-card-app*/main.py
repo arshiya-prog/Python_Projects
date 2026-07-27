@@ -7,9 +7,9 @@ current_card = {}
 list_of_dicts = []
 
 try:
-    data = pd.read_csv("/Users/arshiya/Desktop/Coding/Python/Python_Projects/flash-card-app*/data/words_to_learn.csv")
-except FileNotFoundError, pd.errors.EmptyDataError:
-    og_data = pd.read_csv("/Users/arshiya/Desktop/Coding/Python/Python_Projects/flash-card-app*/data/french_words.csv")
+    data = pd.read_csv("data/words_to_learn.csv")
+except (FileNotFoundError, pd.errors.EmptyDataError):
+    og_data = pd.read_csv("data/french_words.csv")
     list_of_dicts = og_data.to_dict(orient="records")
 else:
     list_of_dicts = data.to_dict(orient="records")
@@ -46,7 +46,7 @@ def is_known():
         canvas.itemconfig(word_label, text="No words left in the file.", font=("Ariel", 40, "bold"), fill="black")
     
     df = pd.DataFrame(list_of_dicts)
-    df.to_csv("/Users/arshiya/Desktop/Coding/Python/Python_Projects/flash-card-app*/data/words_to_learn.csv", index=False)
+    df.to_csv("data/words_to_learn.csv", index=False)
 
     generate_flashcard()
 
@@ -60,19 +60,19 @@ flip_timer = window.after(3000, flip_card)
 
 canvas = tk.Canvas(width=800, height=526, bg=BACKGROUND_COLOR, highlightthickness=0)
 
-front_card_path = tk.PhotoImage(file="/Users/arshiya/Desktop/Coding/Python/Python_Projects/flash-card-app*/images/card_front.png")
-back_card_path = tk.PhotoImage(file="/Users/arshiya/Desktop/Coding/Python/Python_Projects/flash-card-app*/images/card_back.png")
+front_card_path = tk.PhotoImage(file="images/card_front.png")
+back_card_path = tk.PhotoImage(file="images/card_back.png")
 canvas_image = canvas.create_image(400, 263, image=front_card_path)
 
 lang_label = canvas.create_text(400, 150, text="", font=("Ariel", 40, "italic"), fill="black")
 word_label = canvas.create_text(400, 263, text="", font=("Ariel", 60, "bold"), fill="black")
 canvas.grid(row=0, column=0, columnspan=2)
 
-tick = tk.PhotoImage(file="/Users/arshiya/Desktop/Coding/Python/Python_Projects/flash-card-app*/images/right.png")
+tick = tk.PhotoImage(file="images/right.png")
 tick_button = tk.Button(image=tick, highlightthickness=0, highlightbackground=BACKGROUND_COLOR, command=is_known)
 tick_button.grid(row=1, column=0)
 
-cross = tk.PhotoImage(file="/Users/arshiya/Desktop/Coding/Python/Python_Projects/flash-card-app*/images/wrong.png")
+cross = tk.PhotoImage(file="images/wrong.png")
 cross_button = tk.Button(image=cross, highlightthickness=0, highlightbackground=BACKGROUND_COLOR, command=generate_flashcard)
 cross_button.grid(row=1, column=1)
 
