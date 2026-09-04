@@ -1,9 +1,10 @@
 import datetime as dt
 import smtplib
 import random
+import os
 
-my_email = "YOUR MAIL ID"       # Add the mail ID
-password = "PASSWORD"           # Add your password
+my_email = os.environ.get("MY_EMAIL")      # Add the mail ID
+password = os.environ.get("MY_PASSWORD")           # Add your password
 date = dt.datetime.now()
 
 day_of_week = date.weekday()
