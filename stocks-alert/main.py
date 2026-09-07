@@ -25,40 +25,13 @@ NEWS_URL = "https://newsapi.org/v2/everything"
 # When STOCK price increase/decreases by 5% between yesterday and the day before yesterday then print("Get News").
 
 response = requests.get(url=ALPHA_VANTAGE_URL, params=alpha_vantage_parameters)
-stock_data = response.json()
-todays_date = datetime.today().date()
-# weekdays_list = [0, 1, 2, 3, 4]
+stock_data_dict = response.json()["Time Series (Daily)"]
+stock_data_list = [value for (key, value) in stock_data_dict.items()]
 
-if 1 < todays_date.weekday() < 6:
-    yesterday = todays_date - timedelta(1)
-    day_before_yesterday = todays_date - timedelta(2)
-    yesterday_str = str(yesterday)
-    day_before_yesterday_str = str(day_before_yesterday)
-elif todays_date.weekday() == 0:
-    yesterday = todays_date - timedelta(3)
-    day_before_yesterday = todays_date - timedelta(4)
-    yesterday_str = str(yesterday)
-    day_before_yesterday_str = str(day_before_yesterday)
-elif todays_date.weekday() == 1:
-    yesterday = todays_date - timedelta(1)
-    day_before_yesterday = todays_date - timedelta(3)
-    yesterday_str = str(yesterday)
-    day_before_yesterday_str = str(day_before_yesterday)
-elif todays_date.weekday() == 6:
-    yesterday = todays_date - timedelta(2)
-    day_before_yesterday = todays_date - timedelta(3)
-    yesterday_str = str(yesterday)
-    day_before_yesterday_str = str(day_before_yesterday)
-
-yesterdays_close = float(stock_data["Time Series (Daily)"][yesterday_str]["4. close"])
-day_before_yesterdays_close = float(stock_data["Time Series (Daily)"][day_before_yesterday_str]["4. close"])
-
-if yesterdays_close > day_before_yesterdays_close:
-    diff = yesterdays_close - day_before_yesterdays_close
-    diff_percent = (diff / yesterdays_close) * 100
-else:
-    diff = day_before_yesterdays_close - yesterdays_close
-    diff_percent = (diff / day_before_yesterdays_close) * 100
+yesterdays_close = float(stock_data_list[0]["4. close"])
+day_before_yesterdays_close = float(stock_data_list[1]["4. close"])
+diff = abs(yesterdays_close - day_before_yesterdays_close)
+diff_percent = (diff / yesterdays_close) * 100
 
 ## STEP 2: Use https://newsapi.org
 # Instead of printing ("Get News"), actually get the first 3 news pieces for the COMPANY_NAME. 
