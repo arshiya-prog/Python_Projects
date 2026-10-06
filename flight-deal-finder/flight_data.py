@@ -7,5 +7,4 @@ class FlightData:
         self.out_date
         self.return_date
 
-def find_cheapest_flight(self):
-    
+def find_cheapest_flight(data, return_date):
