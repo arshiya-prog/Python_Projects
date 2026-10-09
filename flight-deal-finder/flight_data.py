@@ -16,9 +16,9 @@ def find_cheapest_flight(data, return_date):
 
     first_flight = all_flights[0]
     cheapest_price = first_flight["price"]
-    origin = first_flight["flights"]["departure_airport"]["id"]
-    destination = first_flight["flights"]["arrival_airport"]["id"]
-    out_date = first_flight["flights"]["departure_airport"]["time"].split(" ")[0]
+    origin = first_flight["flights"][0]["departure_airport"]["id"]
+    destination = first_flight["flights"][-1]["arrival_airport"]["id"]
+    out_date = first_flight["flights"][0]["departure_airport"]["time"].split(" ")[0]
 
     cheapest_flight = FlightData(cheapest_price, origin, destination, out_date, return_date)
 
@@ -32,4 +32,8 @@ def find_cheapest_flight(data, return_date):
             cheapest_price = price
             origin = flight["flights"][0]["department_airport"]["id"]
             destination = flight["flights"][-1]["arrival_airport"]["id"]
-            out_date = flight["flights"][0]
+            out_date = flight["flights"][0]["departure_airport"]["time"].split(" ")[0]
+            cheapest_flight = FlightData(cheapest_price, origin, destination, out_date, return_date)
+            print(f"Lowest price to {destination} is GBP {cheapest_price}")
+            
+    return cheapest_flight
