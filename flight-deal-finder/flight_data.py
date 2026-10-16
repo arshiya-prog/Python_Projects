@@ -30,10 +30,10 @@ def find_cheapest_flight(data, return_date):
             continue
         if price < cheapest_price:
             cheapest_price = price
-            origin = flight["flights"][0]["department_airport"]["id"]
+            origin = flight["flights"][0]["departure_airport"]["id"]
             destination = flight["flights"][-1]["arrival_airport"]["id"]
             out_date = flight["flights"][0]["departure_airport"]["time"].split(" ")[0]
             cheapest_flight = FlightData(cheapest_price, origin, destination, out_date, return_date)
             print(f"Lowest price to {destination} is GBP {cheapest_price}")
-            
+
     return cheapest_flight
