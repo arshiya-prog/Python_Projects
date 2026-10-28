@@ -25,3 +25,6 @@ class DataManager:
         }
         self.url = f"{self.sheety_url}/{row_id}"
         requests.put(url=self.url, json=updated_data, headers=self.headers)
+
+    def get_customer_emails(self):
+        # self.response = reques
