@@ -14,7 +14,9 @@ class DataManager:
         self._user = os.environ["SHEETY_USERNAME"]
         self._password = os.environ["SHEETY_PASSWORD"]
         self._authorization = HTTPBasicAuth(self._user, self._password)
+        self.users_endpoint = os.environ["SHEETY_URL_USERS"]
         self.destination_data = {}
+        self.customer_data = {}
 
     def get_destination_data(self):
         response = requests.get(url=SHEETY_PRICES_ENDPOINT, auth=self._authorization)
@@ -35,3 +37,9 @@ class DataManager:
             json=new_data,
             auth=self._authorization
         )
+
+    def get_customer_emails(self):
+            response = requests.get(url=os.getenv("SHEETY_URL_USERS"), auth=self._authorization)
+            data = response.json()
+            self.customer_data = data["users"]
+            return self.customer_data
